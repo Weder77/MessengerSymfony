@@ -24,7 +24,7 @@ class Message
     /**
      * @ORM\Column(type="datetime")
      */
-    private $dateTime;
+    private $date;
 
     /**
      * @ORM\Column(type="integer")
@@ -32,14 +32,16 @@ class Message
     private $state;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $groupe = [];
+    private $group_send;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $User;
+    private $user;
 
     public function getId(): ?int
     {
@@ -58,14 +60,14 @@ class Message
         return $this;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->dateTime;
+        return $this->date;
     }
 
-    public function setDateTime(\DateTimeInterface $dateTime): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->dateTime = $dateTime;
+        $this->date = $date;
 
         return $this;
     }
@@ -82,26 +84,26 @@ class Message
         return $this;
     }
 
-    public function getGroupe(): ?array
+    public function getGroupSend(): ?Group
     {
-        return $this->groupe;
+        return $this->group_send;
     }
 
-    public function setGroupe(array $groupe): self
+    public function setGroupSend(?Group $group_send): self
     {
-        $this->groupe = $groupe;
+        $this->group_send = $group_send;
 
         return $this;
     }
 
-    public function getUser(): ?string
+    public function getUser(): ?User
     {
-        return $this->User;
+        return $this->user;
     }
 
-    public function setUser(string $User): self
+    public function setUser(?User $user): self
     {
-        $this->User = $User;
+        $this->user = $user;
 
         return $this;
     }

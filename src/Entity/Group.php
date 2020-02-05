@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,7 +24,7 @@ class Group
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
 
@@ -32,24 +34,26 @@ class Group
     private $date;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="groups")
      */
-    private $state;
+    private $users;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="groups_admin")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $users = [];
+    private $users_admin;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="group_send", orphanRemoval=true)
      */
-    private $users_p;
+    private $messages;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $messages = [];
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,7 +77,7 @@ class Group
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
 
@@ -92,50 +96,71 @@ class Group
         return $this;
     }
 
-    public function getState(): ?int
-    {
-        return $this->state;
-    }
-
-    public function setState(int $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    public function getUsers(): ?array
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function setUsers(array $users): self
+    public function addUser(User $user): self
     {
-        $this->users = $users;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
 
         return $this;
     }
 
-    public function getUsersP(): ?string
+    public function removeUser(User $user): self
     {
-        return $this->users_p;
-    }
-
-    public function setUsersP(string $users_p): self
-    {
-        $this->users_p = $users_p;
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+        }
 
         return $this;
     }
 
-    public function getMessages(): ?array
+    public function getUsersAdmin(): ?User
+    {
+        return $this->users_admin;
+    }
+
+    public function setUsersAdmin(?User $users_admin): self
+    {
+        $this->users_admin = $users_admin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
     {
         return $this->messages;
     }
 
-    public function setMessages(?array $messages): self
+    public function addMessage(Message $message): self
     {
-        $this->messages = $messages;
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setGroupSend($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getGroupSend() === $this) {
+                $message->setGroupSend(null);
+            }
+        }
 
         return $this;
     }

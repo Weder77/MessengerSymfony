@@ -3,15 +3,15 @@
 {% block title %}Login Page{% endblock %}
 
 {% block body %}
-<div class="container text-center">
-    <h3 class="mt-4">Create account</h3>
+<div class="container text-center mt-4">
+    <h3 class="text-white">Create account</h3>
 </div>
 
 <div class="mt-4 container text-center">
 
     {{ form_start(RegisterFormType) }}
     <form class="container text-center">
-    <label>Email</label>
+    <label class="text-white">Email</label>
         <div class="form-group">
             {{ form_widget(RegisterFormType.email, { 'attr' : {
         'placeholder' : 'email',
@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-group">
-            <label>Username</label>
+            <label class="text-white">Username</label>
             {{ form_widget(RegisterFormType.username, { 'attr' : {
         'placeholder' : 'username',
         'class' : 'form-group'
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-            <label>Password</label>
+            <label class="text-white">Password</label>
             {{ form_widget(RegisterFormType.password, { 'attr' : {
         'placeholder' : 'password',
         'class' : 'form-group'
@@ -45,7 +45,7 @@
 </div>
 
 <div class="text-white text-center container mt-4">
-   You have already an account? <a class="text-white" href="{{ path('login') }}">Click here to login !</a>
+   You have already an account? <a class="text-white" href="{{ path('login') }}">Login now!</a>
 </div>
 
 {% endblock %}

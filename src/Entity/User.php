@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -34,24 +36,36 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $photo;
+    private $picture;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="users")
      */
-    private $groupes = [];
+    private $groups;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Group", mappedBy="users_admin", orphanRemoval=true)
      */
-    private $messages = [];
+    private $groups_admin;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true)
+     */
+    private $messages;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+        $this->groups_admin = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,38 +152,104 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPicture(): ?string
     {
-        return $this->photo;
+        return $this->picture;
     }
 
-    public function setPhoto(?string $photo): self
+    public function setPicture(?string $picture): self
     {
-        $this->photo = $photo;
+        $this->picture = $picture;
 
         return $this;
     }
 
-    public function getGroupes(): ?array
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroups(): Collection
     {
-        return $this->groupes;
+        return $this->groups;
     }
 
-    public function setGroupes(?array $groupes): self
+    public function addGroup(Group $group): self
     {
-        $this->groupes = $groupes;
+        if (!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+            $group->addUser($this);
+        }
 
         return $this;
     }
 
-    public function getMessages(): ?array
+    public function removeGroup(Group $group): self
+    {
+        if ($this->groups->contains($group)) {
+            $this->groups->removeElement($group);
+            $group->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroupsAdmin(): Collection
+    {
+        return $this->groups_admin;
+    }
+
+    public function addGroupsAdmin(Group $groupsAdmin): self
+    {
+        if (!$this->groups_admin->contains($groupsAdmin)) {
+            $this->groups_admin[] = $groupsAdmin;
+            $groupsAdmin->setUsersAdmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupsAdmin(Group $groupsAdmin): self
+    {
+        if ($this->groups_admin->contains($groupsAdmin)) {
+            $this->groups_admin->removeElement($groupsAdmin);
+            // set the owning side to null (unless already changed)
+            if ($groupsAdmin->getUsersAdmin() === $this) {
+                $groupsAdmin->setUsersAdmin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
     {
         return $this->messages;
     }
 
-    public function setMessages(?array $messages): self
+    public function addMessage(Message $message): self
     {
-        $this->messages = $messages;
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
 
         return $this;
     }
