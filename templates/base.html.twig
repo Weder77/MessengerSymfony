@@ -31,8 +31,29 @@
 			height: 100%;
 			margin: 0;
 			background: #7F7FD5;
-	       background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	       	background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
 	        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+			background-size: 400% 400%;
+
+			-webkit-animation: GradientAnimation 60s ease infinite;
+			-moz-animation: GradientAnimation 60s ease infinite;
+			animation: GradientAnimation 60s ease infinite;
+		}
+
+		@-webkit-keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+		@-moz-keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+		@keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
 		}
 
 		.chat{
