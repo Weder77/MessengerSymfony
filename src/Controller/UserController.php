@@ -7,6 +7,7 @@ use App\Form\RegisterFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -29,7 +30,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register(Request $request)
+    public function register(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $manager = $this -> getDoctrine() -> getManager();
         $user = new User; // objet vide de l'entity Post
@@ -40,7 +41,20 @@ class UserController extends AbstractController
         // traitement des infos du formulaire
         $form -> handleRequest($request); // lier definitivement le $post aux infos du formulaire (recupere les donner en saisies en $_POST)
 
+        if($form -> isSubmitted() && $form -> isValid() ){
+            $manager -> persist($user); // enregistrer le post dans le systeme
+
+            //  encodage du mot de passer
+            $password = $user -> getPassword();
+            $user -> setPassword($encoder->encodePassword($user, $password));
+
+            $manager -> flush(); // execute toutes les requetes en attentes
+            $this -> addFlash('success', 'Le compte à bien été créer !');
+
+            return $this -> redirectToRoute('accueil');
+        }
        
+
         return $this -> render('user/register.html.twig', array(
             'RegisterFormType' => $form -> createView()
         ));
