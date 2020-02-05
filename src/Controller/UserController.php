@@ -49,7 +49,7 @@ class UserController extends AbstractController
             $user -> setPassword($encoder->encodePassword($user, $password));
 
             $manager -> flush(); // execute toutes les requetes en attentes
-            $this -> addFlash('success', 'Le compte à bien été créer !');
+            $this -> addFlash('success', 'Le compte à bien été créer, vous pouvez maintenant vous connecter !');
 
             return $this -> redirectToRoute('login');
         }
@@ -58,7 +58,22 @@ class UserController extends AbstractController
         return $this -> render('user/register.html.twig', array(
             'RegisterFormType' => $form -> createView()
         ));
-
-        
     }
+
+    /**
+     * @Route("/groups", name="groups")
+     */
+    public function groups()
+    {
+        return $this -> render('user/register.html.twig', array());
+    }
+
+        /**
+     * route nécessaire pour le fonctionnement de sécurité de ma connexion
+     * @Route("/login_check", name="login_check")
+     */
+    public function loginCheck(){}
+
+
+
 }
