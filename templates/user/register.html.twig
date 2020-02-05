@@ -3,5 +3,47 @@
 {% block title %}Login Page{% endblock %}
 
 {% block body %}
-REGISTER
+<div class="container text-center">
+    <h3 class="mt-4">Créer un compte</h3>
+</div>
+
+<div class="mt-4 container text-center">
+
+
+{{ form_start(RegisterFormType) }}
+<form class="container text-center">
+
+<div class="form-group">
+       {{ form_widget(RegisterFormType.email, { 'attr' : {
+        'placeholder' : 'email',
+        'class' : 'form-group'
+    }})}}  
+    {{ form_errors(RegisterFormType.email) }}
+    
+</div>
+
+<div class="form-group">
+    {{ form_widget(RegisterFormType.username, { 'attr' : {
+        'placeholder' : 'username',
+        'class' : 'form-group'
+    }})}}  
+    {{ form_errors(RegisterFormType.username) }}
+    
+</div>
+
+<div class="form-group">
+     {{ form_widget(RegisterFormType.password, { 'attr' : {
+        'placeholder' : 'password',
+        'class' : 'form-group'
+    }})}}  
+    {{ form_errors(RegisterFormType.password) }}
+</div>
+{{ form_end(RegisterFormType) }}
+
+
+
+</form>
+
+
+</div>
 {% endblock %}

@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
+use App\Form\RegisterFormType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
@@ -26,8 +29,22 @@ class UserController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register()
+    public function register(Request $request)
     {
-        return $this->render('user/register.html.twig', array());
+        $manager = $this -> getDoctrine() -> getManager();
+        $user = new User; // objet vide de l'entity Post
+        
+        // formulaire...
+        $form = $this -> createForm(RegisterFormType::class, $user);
+
+        // traitement des infos du formulaire
+        $form -> handleRequest($request); // lier definitivement le $post aux infos du formulaire (recupere les donner en saisies en $_POST)
+
+       
+        return $this -> render('user/register.html.twig', array(
+            'RegisterFormType' => $form -> createView()
+        ));
+
+        
     }
 }
