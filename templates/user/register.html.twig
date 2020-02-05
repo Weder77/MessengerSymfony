@@ -4,38 +4,39 @@
 
 {% block body %}
 <div class="container text-center">
-    <h3 class="mt-4">Créer un compte</h3>
+    <h3 class="mt-4">Create account</h3>
 </div>
 
 <div class="mt-4 container text-center">
 
-
     {{ form_start(RegisterFormType) }}
     <form class="container text-center">
-
+    <label>Email</label>
         <div class="form-group">
             {{ form_widget(RegisterFormType.email, { 'attr' : {
         'placeholder' : 'email',
         'class' : 'form-group'
-    }})}}
+        }})}}
             {{ form_errors(RegisterFormType.email) }}
 
         </div>
 
         <div class="form-group">
+            <label>Username</label>
             {{ form_widget(RegisterFormType.username, { 'attr' : {
         'placeholder' : 'username',
         'class' : 'form-group'
-    }})}}
+        }})}}
             {{ form_errors(RegisterFormType.username) }}
 
         </div>
 
         <div class="form-group">
+            <label>Password</label>
             {{ form_widget(RegisterFormType.password, { 'attr' : {
         'placeholder' : 'password',
         'class' : 'form-group'
-    }})}}
+        }})}}
             {{ form_errors(RegisterFormType.password) }}
         </div>
         {{ form_end(RegisterFormType) }}
@@ -44,7 +45,7 @@
 </div>
 
 <div class="text-white text-center container mt-4">
-    Déjà inscrit ? <a class="text-white" href="{{ path('login') }}">Cliquez ici pour se connecter !</a>
+   You have already an account? <a class="text-white" href="{{ path('login') }}">Click here to login !</a>
 </div>
 
 {% endblock %}

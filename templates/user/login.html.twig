@@ -3,6 +3,27 @@
 {% block title %}Login Page{% endblock %}
 
 {% block body %}
+<div class="container text-center">
+    <h3 class="mt-4">Sign In</h3>
+</div>
 
-login
+<div class="mt-4 container text-center">
+
+<form method="post">
+  <div class="form-group">
+    <label>Username</label>
+    <input type="email" class="form-control" placeholder="email">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary mt-4">Sign in</button>
+</form>
+
+</div>
+
+<div class="text-white text-center container mt-4">
+    Are you new here ? <a class="text-white" href="{{ path('register') }}">Click here to create an account !</a>
+</div>
 {% endblock %}

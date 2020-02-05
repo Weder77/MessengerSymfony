@@ -20,7 +20,7 @@ class RegisterFormType extends AbstractType
         ->add('username', TextType::class)
         ->add('password', PasswordType::class)
         ->add('email', EmailType::class)
-        ->add('Inscription', SubmitType::class)
+        ->add('Register', SubmitType::class)
         ;
     }
 
