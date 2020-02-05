@@ -4,10 +4,10 @@
 
 > A school project in symfony. This is a like messenger / whatsapp app.
 
-## Install
+## Run server
 
 ```sh
-php bin/console server:run
+php -S localhost:8000 -t public
 ```
 
 ## Authors
