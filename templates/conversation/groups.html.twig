@@ -7,7 +7,7 @@
 				<div class="d-flex bd-highlight">
 					<div class="img_cont">
 						{% if group.picture != null %}
-							<img src="{{ asset('photo/' ~ group.picture) }}" class="rounded-circle user_img">
+							<img src="{{ asset('photo/group/' ~ group.picture) }}" class="rounded-circle user_img">
 
 						{% else %}
 
@@ -31,7 +31,7 @@
 
 {% block conversationPicture %}
 	{% if actualGroup.picture != null %}
-		<img src="{{ asset('photo/' ~ actualGroup.picture) }}" class="rounded-circle user_img">
+		<img src="{{ asset('photo/profile/' ~ actualGroup.picture) }}" class="rounded-circle user_img">
 	{% else %}
 
 		<img src="{{ asset('img/defaultGroup.png') }}" class="rounded-circle user_img">
@@ -59,7 +59,7 @@
 				</div>
 				<div class="img_cont_msg">
 					{% if message.user.picture != null %}
-						<img src="{{ asset('photo/' ~ message.user.picture) }}" class="rounded-circle user_img_msg">
+						<img src="{{ asset('photo/profile/' ~ message.user.picture) }}" class="rounded-circle user_img_msg">
 
 					{% else %}
 						<img src="{{ asset('img/defaultProfile.png') }}" class="rounded-circle user_img_msg">
