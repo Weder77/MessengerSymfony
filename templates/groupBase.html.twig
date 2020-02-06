@@ -29,6 +29,19 @@
 				border-radius: 15px !important;
 				background-color: rgba(0, 0, 0, 0.4) !important;
 			}
+			.power-off{
+    			right: 3%;
+    			width: 10%;
+    			top: 3%;
+    			position: absolute;
+			}
+			.add{
+    			position: absolute;
+    			right: 16%;
+   			 	width: 10%;
+    			top: 3%;
+
+			}
 			.contacts_body {
 				padding: 0.75rem 0 !important;
 				overflow-y: auto;
@@ -244,8 +257,14 @@
 			<div class="row justify-content-center h-100">
 				<div class="col-md-4 col-xl-3 chat">
 					<div class="card mb-sm-3 mb-md-0 contacts_card">
-						<div class="card-header">
+						<div class="card-header text-white">
 							<h1>Messenger Symfony</h1>
+							<a href="{{ path('logout')}}">
+								<img src="{{ asset('img/poweroff.png')}}" class="power-off">
+							</a>
+							<a href="{{ path('groups-create')}}">
+								<img src="{{ asset('img/add.png')}}" class="add">
+							</a>
 						</div>
 						<div class="card-body contacts_body">
 							<ui class="contacts"> {% block conversations %}{% endblock %}
