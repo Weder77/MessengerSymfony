@@ -64,5 +64,15 @@ class UserController extends AbstractController
      * route nécessaire pour le fonctionnement de sécurité de ma connexion
      * @Route("/login_check", name="login_check")
      */
-    public function loginCheck() {}
+    public function loginCheck()
+    {
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
+    {
+        return $this->redirectToRoute('login');
+    }
 }
