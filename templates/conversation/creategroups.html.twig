@@ -107,9 +107,9 @@
                         }})}}
 								{{ form_errors(CreateGroupType.file) }}
 							</div>
-							<table class="table table-striped mt-4">
+							<table class="table table-striped mt-4 table-dark">
 								<thead>
-									<tr>
+									<tr class="text-center">
 										<th scope="col">Username</th>
 										<th scope="col">Picture</th>
 										<th scope="col">Add</th>
@@ -117,7 +117,7 @@
 								</thead>
 								<tbody>
 									{% for u in users %}
-									<tr>
+									<tr class="text-center">
 										<td>{{ u.username }}</td>
 										<td><img src="{{ asset('/photo/profile/' ~ u.picture) }}" height="40px" /></td>
 										<td><input class="form-check-input" type="checkbox" id="{{ u.username }}CB"></td>
