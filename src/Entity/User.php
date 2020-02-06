@@ -293,6 +293,6 @@ class User implements UserInterface
 
     public function dirPhoto()
     {
-        return __DIR__ . '/../../public/photo/';
+        return __DIR__ . '/../../public/photo/profile/';
     }
 }

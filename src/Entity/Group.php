@@ -195,7 +195,7 @@ class Group
     }
 
     public function dirPhoto(){
-        return __DIR__ . '/../../public/photo/groups/';
+        return __DIR__ . '/../../public/photo/group/';
     }
 
 
