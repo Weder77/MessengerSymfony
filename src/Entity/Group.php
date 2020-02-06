@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
@@ -27,6 +28,8 @@ class Group
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
+
+    private $file;
 
     /**
      * @ORM\Column(type="date")
@@ -164,4 +167,35 @@ class Group
 
         return $this;
     }
+
+
+    public function getFile(){
+        return $this ->file;
+    }
+    public function setFile(UploadedFile $file){
+        $this ->file = $file;
+        return $this;
+    }
+    public function uploadFile(){
+        $name = $this ->file -> getClientOriginalName();
+        $newName = $this ->renameFile($name);
+        // on enregistre la photo dans la bdd
+        $this ->picture = $newName;
+        // on enregistrela photo sur le serveur
+        $this->file->move($this->dirPhoto(), $newName);
+    }
+    // public function removeFile(){
+    //     if(file_exists($this ->dirPhoto() . $this->picture)){
+    //         unlink($this ->dirPhoto() . $this->picture);
+    //     }
+    // }
+    public function renameFile($name){
+        return 'photo_' . time() . rand(1, 99999) . '_' . $name;
+    }
+
+    public function dirPhoto(){
+        return __DIR__ . '/../../public/photo/';
+    }
+
+
 }
