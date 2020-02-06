@@ -8,12 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConversationController extends AbstractController
 {
     /**
-     * @Route("/conversation", name="conversation")
+     * @Route("/groups", name="groups")
      */
-    public function index()
+    public function groups()
     {
-        return $this->render('conversation/index.html.twig', [
-            'controller_name' => 'ConversationController',
-        ]);
+        return $this->render('conversation/groups.html.twig', array());
     }
 }
