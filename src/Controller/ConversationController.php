@@ -48,12 +48,33 @@ class ConversationController extends AbstractController
      */
     public function createGroups(Request $request)
     {
+        $manager = $this -> getDoctrine() -> getManager();
         $grp = new Group; 
-
 
         // formulaire
         $form = $this->createForm(CreateGroupType::class, $grp);
         
+        // traitement des infos du formulaire
+        $form->handleRequest($request); // lier definitivement le $post aux infos du formulaire (recupere les donner en saisies en $_POST)
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($grp); // enregistrer le post dans le systeme
+
+            $grp->setDate(new \DateTime('now'));
+
+            $user_a = $this->getUser();
+            
+            $grp->setUsersAdmin($user_a);
+
+            $grp->addUser($user_a);
+            
+
+            $manager->flush(); // execute toutes les requetes en attentes
+            $this->addFlash('success', 'Le groupe a bien été crée ! Vous le retrouverez à l\'accueil !');
+
+        }
+
         return $this->render('conversation/creategroups.html.twig', array(
             'CreateGroupType' => $form->createView()
         ));

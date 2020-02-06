@@ -76,6 +76,12 @@ class User implements UserInterface
     {
         return $this->id;
     }
+    
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     /**
      * A visual identifier that represents this user.
