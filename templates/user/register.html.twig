@@ -1,51 +1,186 @@
-{% extends 'formBase.html.twig' %}
+{% extends 'baseTemplate.html.twig' %}
 
-{% block title %}Login Page{% endblock %}
+{% block title %}Register Page{% endblock %}
+
+{% block stylesheet %}
+<style>
+		body,
+		html {
+					height: 100%;
+			margin: 0;
+			background: #7F7FD5;
+	       	background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+			background-size: 400% 400%;
+
+			-webkit-animation: GradientAnimation 60s ease infinite;
+			-moz-animation: GradientAnimation 60s ease infinite;
+			animation: GradientAnimation 60s ease infinite;
+		}
+
+
+		@-webkit-keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+		@-moz-keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+		@keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+
+		.user_card {
+			height: 400px;
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #3aacd0;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+		.brand_logo_container {
+			position: absolute;
+			height: 170px;
+			width: 170px;
+			top: -75px;
+			border-radius: 50%;
+				background: #7F7FD5;
+	       	background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+			background-size: 400% 400%;
+
+			-webkit-animation: GradientAnimation 60s ease infinite;
+			-moz-animation: GradientAnimation 60s ease infinite;
+			animation: GradientAnimation 60s ease infinite;
+			padding: 10px;
+			text-align: center;
+		}
+		.brand_logo {
+			height: 150px;
+			width: 150px;
+			border-radius: 50%;
+		}
+		.form_container {
+			margin-top: 100px;
+		}
+		.login_btn {
+			width: 100%;
+			background: #c0392b !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #c0392b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+			background-color: #c0392b !important;
+		}
+    </style>
+{% endblock %}
 
 {% block body %}
-<div class="container text-center mt-4">
-    <h3 class="text-white">Create account</h3>
-</div>
 
-<div class="mt-4 container text-center">
+<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+					<img src="{{ asset('img/logo.png')}}" class="brand_logo"/>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+                {{ form_start(RegisterFormType) }}
+                    {# email #}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+							</div>
+						{{ form_widget(RegisterFormType.email, { 'attr' : {
+                            'placeholder' : 'email',
+                            'class' : 'form-group'
+                        }})}}
+                        {{ form_errors(RegisterFormType.email) }}
 
-    {{ form_start(RegisterFormType) }}
-    <form class="container text-center">
-    <label class="text-white">Email</label>
-        <div class="form-group">
-            {{ form_widget(RegisterFormType.email, { 'attr' : {
-        'placeholder' : 'email',
-        'class' : 'form-group'
-        }})}}
-            {{ form_errors(RegisterFormType.email) }}
+						</div>
+                    {# username #}
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+                        {{ form_widget(RegisterFormType.username, { 'attr' : {
+                            'placeholder' : 'username',
+                            'class' : 'form-group'
+                        }})}}
+                        {{ form_errors(RegisterFormType.username) }}
+						</div>
 
-        </div>
+                    {# password #}
+                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+						{{ form_widget(RegisterFormType.password, { 'attr' : {
+                            'placeholder' : 'password',
+                            'class' : 'form-group',
+                            'type' : 'password'
+                        }})}}
+                        {{ form_errors(RegisterFormType.password) }}
+						</div>
 
-        <div class="form-group">
-            <label class="text-white">Username</label>
-            {{ form_widget(RegisterFormType.username, { 'attr' : {
-        'placeholder' : 'username',
-        'class' : 'form-group'
-        }})}}
-            {{ form_errors(RegisterFormType.username) }}
+                    {# picture #}
+                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-file-image"></i></span>
+							</div>
+						{{ form_widget(RegisterFormType.file, { 'attr' : {
+                            'placeholder' : 'picture',
+                            'class' : 'form-group'
+                        }})}}
+                        {{ form_errors(RegisterFormType.file) }}
+						</div>
 
-        </div>
 
-        <div class="form-group">
-            <label class="text-white">Password</label>
-            {{ form_widget(RegisterFormType.password, { 'attr' : {
-        'placeholder' : 'password',
-        'class' : 'form-group'
-        }})}}
-            {{ form_errors(RegisterFormType.password) }}
-        </div>
-        {{ form_end(RegisterFormType) }}
 
-    </form>
-</div>
-
-<div class="text-white text-center container mt-4">
-   You have already an account? <a class="text-white" href="{{ path('login') }}">Login now!</a>
-</div>
-
+					<div class="d-flex justify-content-center mt-3 login_container">
+				 	    {{ form_end(RegisterFormType) }}
+				    </div>
+                                        
+				</div>
+		
+				<div class="">
+					<div class="d-flex justify-content-center links">
+						Have already an account? <a href="{{ path('login')}}" class="ml-2">Sign In</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div
 {% endblock %}

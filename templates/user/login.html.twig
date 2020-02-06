@@ -1,29 +1,146 @@
-{% extends 'formBase.html.twig' %}
+{% extends 'baseTemplate.html.twig' %}
 
 {% block title %}Login Page{% endblock %}
 
+{% block stylesheet %}
+<style>
+		body,
+		html {
+					height: 100%;
+			margin: 0;
+			background: #7F7FD5;
+	       	background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+			background-size: 400% 400%;
+
+			-webkit-animation: GradientAnimation 60s ease infinite;
+			-moz-animation: GradientAnimation 60s ease infinite;
+			animation: GradientAnimation 60s ease infinite;
+		}
+
+
+		@-webkit-keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+		@-moz-keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+		@keyframes GradientAnimation {
+			0%{background-position:93% 0%}
+			50%{background-position:0% 100%}
+			100%{background-position:93% 0%}
+		}
+
+		.user_card {
+			height: 400px;
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #3aacd0;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+		.brand_logo_container {
+			position: absolute;
+			height: 170px;
+			width: 170px;
+			top: -75px;
+			border-radius: 50%;
+				background: #7F7FD5;
+	       	background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+			background-size: 400% 400%;
+
+			-webkit-animation: GradientAnimation 60s ease infinite;
+			-moz-animation: GradientAnimation 60s ease infinite;
+			animation: GradientAnimation 60s ease infinite;
+			padding: 10px;
+			text-align: center;
+		}
+		.brand_logo {
+			height: 150px;
+			width: 150px;
+			border-radius: 50%;
+		}
+		.form_container {
+			margin-top: 100px;
+		}
+		.login_btn {
+			width: 100%;
+			background: #c0392b !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #c0392b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+			background-color: #c0392b !important;
+		}
+    </style>
+{% endblock %}
+
 {% block body %}
-<div class="container text-center mt-4">
-    <h3 class="text-white">Sign In</h3>
-</div>
-
-<div class="mt-4 container text-center">
-
-<form method="post" action="{{ path('login_check') }}">
-  <div class="form-group">
-    <label class="text-white">Username</label>
-    <input type="text" class="form-control" placeholder="Username" name="_username">
-  </div>
-  <div class="form-group">
-    <label class="text-white">Password</label>
-    <input type="password" class="form-control" placeholder="Password" name="_password">
-  </div>
-  <button type="submit" class="btn btn-primary mt-4">Sign in</button>
-</form>
-
-</div>
-
-<div class="text-white text-center container mt-4">
-    Are you new here ? <a class="text-white" href="{{ path('register') }}">Create an account!</a>
-</div>
+<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+					<img src="{{ asset('img/logo.png')}}" class="brand_logo"/>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form method="post" action="{{ path('login_check') }}">
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input name="_username" class="form-control input_user" placeholder="username">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input type="password" name="_password" class="form-control input_pass" placeholder="password">
+						</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+				 	<button type="submit" class="btn login_btn">Login</button>
+				   </div>
+					</form>
+				</div>
+		
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Don't have an account? <a href="{{ path('register')}}" class="ml-2">Sign Up</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

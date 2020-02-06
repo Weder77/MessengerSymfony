@@ -35,7 +35,7 @@ class UserController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $user = new User; // objet vide de l'entity Post
 
-        // formulaire...
+        // formulaire
         $form = $this->createForm(RegisterFormType::class, $user);
 
         // traitement des infos du formulaire
@@ -43,6 +43,10 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($user); // enregistrer le post dans le systeme
+
+            if($user -> getFile()){
+                $user-> uploadFile();
+            }
 
             //  encodage du mot de passer
             $password = $user->getPassword();
