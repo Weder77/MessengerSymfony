@@ -25,7 +25,7 @@ security:
 
             form_login:
                 login_path: 'login'
-                default_target_path: 'groups'
+                default_target_path: 'groups-list'
                 check_path: 'login_check'
 
             logout:

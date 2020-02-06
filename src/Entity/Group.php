@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
+ * @ORM\Table(name="groupe")
  * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
  */
 class Group

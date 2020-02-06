@@ -266,26 +266,25 @@
 										<span>
 											{% block conversationName %}{% endblock %}
 										</span>
-										<p>1767 Messages</p>
+										<p>{% block conversationInfo %}{% endblock %}</p>
 									</div>
 								</div>
 							</div>
-							<div class="card-body msg_card_body"> 
-                            {% block messages %}{% endblock %}
-							</div>
-							<div class="card-footer">
-								<div class="input-group">
-									<textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
-									<div class="input-group-append">
-										<span class="input-group-text send_btn">
-											<i class="fas fa-location-arrow"></i>
-										</span>
+							<div class="card-body msg_card_body"> {% block messages %}{% endblock %}
+								</div>
+								<div class="card-footer">
+									<div class="input-group">
+										<textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+										<div class="input-group-append">
+											<span class="input-group-text send_btn">
+												<i class="fas fa-location-arrow"></i>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</body>
-	</html>
+			</body>
+		</html>

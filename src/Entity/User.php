@@ -26,9 +26,9 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="json")
      */
-    private $roles = 'ROLE_USER';
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -40,7 +40,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $email;
-    
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -93,19 +93,19 @@ class User implements UserInterface
 
         return $this;
     }
-    
+
     /**
      * @see UserInterface
      */
     public function getRoles(): array
     {
-        return [$this ->roles];
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
-
         return $this;
     }
 
@@ -257,18 +257,21 @@ class User implements UserInterface
     }
 
 
-    public function getFile(){
-        return $this ->file;
+    public function getFile()
+    {
+        return $this->file;
     }
-    public function setFile(UploadedFile $file){
-        $this ->file = $file;
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
         return $this;
     }
-    public function uploadFile(){
-        $name = $this ->file -> getClientOriginalName();
-        $newName = $this ->renameFile($name);
+    public function uploadFile()
+    {
+        $name = $this->file->getClientOriginalName();
+        $newName = $this->renameFile($name);
         // on enregistre la photo dans la bdd
-        $this ->picture = $newName;
+        $this->picture = $newName;
         // on enregistrela photo sur le serveur
         $this->file->move($this->dirPhoto(), $newName);
     }
@@ -277,13 +280,13 @@ class User implements UserInterface
     //         unlink($this ->dirPhoto() . $this->picture);
     //     }
     // }
-    public function renameFile($name){
+    public function renameFile($name)
+    {
         return 'photo_' . time() . rand(1, 99999) . '_' . $name;
     }
 
-    public function dirPhoto(){
+    public function dirPhoto()
+    {
         return __DIR__ . '/../../public/photo/';
     }
-
-
 }
