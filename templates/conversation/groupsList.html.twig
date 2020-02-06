@@ -1,33 +1,4 @@
-{% extends 'groupBase.html.twig' %}
-
-{% block conversations %}
-	{% for group in groups %}
-		<a href="{{ path('group-conversation', { id : group.id }) }}">
-			<li>
-				<div class="d-flex bd-highlight">
-					<div class="img_cont">
-						{% if group.picture != null %}
-							<img src="{{ asset('photo/group/' ~ group.picture) }}" class="rounded-circle user_img">
-
-						{% else %}
-
-							<img src="{{ asset('img/defaultGroup.png') }}" class="rounded-circle user_img">
-						{% endif %}
-						<span class="online_icon"></span>
-					</div>
-					<div class="user_info">
-						<span>{{ group.name }}</span>
-						<p>
-							{% for user in group.users %}
-								{{ user.username }}
-							{% endfor %}
-						</p>
-					</div>
-				</div>
-			</li>
-		</a>
-	{% endfor %}
-{% endblock %}
+{% extends 'chatBase.html.twig' %}
 
 {% block conversationName %}{% endblock %}
 
