@@ -48,6 +48,9 @@ class ConversationController extends AbstractController
      */
     public function createGroups(Request $request)
     {
+        $repository = $this -> getDoctrine() -> getRepository('App\Entity\User'); // 
+        $users = $repository -> findAll(); // On les récupères
+
         $manager = $this -> getDoctrine() -> getManager();
         $grp = new Group; 
 
@@ -76,7 +79,8 @@ class ConversationController extends AbstractController
         }
 
         return $this->render('conversation/creategroups.html.twig', array(
-            'CreateGroupType' => $form->createView()
+            'CreateGroupType' => $form->createView(),
+            'users' => $users 
         ));
 
     }

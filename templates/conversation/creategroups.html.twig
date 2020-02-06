@@ -22,14 +22,14 @@
 		background-color: rgba(0, 0, 0, 0.4) !important;
 	}
 
-	.power-off{
+	.power-off {
 		width: 7%;
 		height: auto;
 		margin-left: 93%;
 		margin-top: -8%;
 	}
 
-	.return{
+	.return {
 		width: 7%;
 		height: auto;
 		margin-top: -15%;
@@ -58,8 +58,6 @@
 	.container {
 		align-content: center;
 	}
-
-
 </style>
 {% endblock %}
 {% block body %}
@@ -67,7 +65,7 @@
 	<div class="row justify-content-center h-100">
 		<div class="col-md-8 col-xl-6 chat">
 			<div class="card d-flex">
-			
+
 				<div class="justify-content-around card-header msg_head">
 					<div class="text-white bd-highlight">
 						<div class="user_info text-center">
@@ -85,44 +83,62 @@
 				</div>
 
 				<div class="card-body msg_card_body">
-				<div class="container col-md-6">
-					{{ form_start(CreateGroupType) }}
-                    {# name #}
+					<div class="container col-md-6">
+						{{ form_start(CreateGroupType) }}
+						{# name #}
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-signature"></i></i></span>
 							</div>
-						{{ form_widget(CreateGroupType.name, { 'attr' : {
+							{{ form_widget(CreateGroupType.name, { 'attr' : {
                             'placeholder' : 'name',
                             'class' : 'form-group'
                         }})}}
-                        {{ form_errors(CreateGroupType.name) }}
+							{{ form_errors(CreateGroupType.name) }}
 
-                    {# picture #}
-                        <div class="input-group mb-3 mt-4">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-file-image"></i></span>
-							</div>
-						{{ form_widget(CreateGroupType.file, { 'attr' : {
+							{# picture #}
+							<div class="input-group mb-3 mt-4">
+								<div class="input-group-append">
+									<span class="input-group-text"><i class="fas fa-file-image"></i></span>
+								</div>
+								{{ form_widget(CreateGroupType.file, { 'attr' : {
                             'placeholder' : 'group image',
                             'class' : 'form-group'
                         }})}}
-                        {{ form_errors(CreateGroupType.file) }}
+								{{ form_errors(CreateGroupType.file) }}
+							</div>
+							<table class="table table-striped mt-4">
+								<thead>
+									<tr>
+										<th scope="col">Username</th>
+										<th scope="col">Picture</th>
+										<th scope="col">Add</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for u in users %}
+									<tr>
+										<td>{{ u.username }}</td>
+										<td><img src="{{ asset('/photo/profile/' ~ u.picture) }}" height="40px" /></td>
+										<td><input class="form-check-input" type="checkbox" id="{{ u.username }}CB"></td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+
+							{{ form_end(CreateGroupType) }}
+
+							<div class="d-flex justify-content-center mt-3 login_container">
+							</div>
+
+
 						</div>
 
-				 	    {{ form_end(CreateGroupType) }}
+					</div>
 
-					<div class="d-flex justify-content-center mt-3 login_container">
-				    </div>
-
-                                        
 				</div>
-		
-				</div>
-
 			</div>
 		</div>
 	</div>
-</div>
 
-{% endblock %}
+	{% endblock %}
