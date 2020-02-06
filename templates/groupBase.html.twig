@@ -277,33 +277,33 @@
 						<div class="card">
 							<div class="card-header msg_head">
 								<div class="d-flex bd-highlight">
-									<div class="img_cont">
-										<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-										<span class="online_icon"></span>
-									</div>
-									<div class="user_info">
-										<span>
-											{% block conversationName %}{% endblock %}
-										</span>
-										<p>{% block conversationInfo %}{% endblock %}</p>
-									</div>
-								</div>
-							</div>
-							<div class="card-body msg_card_body"> {% block messages %}{% endblock %}
-								</div>
-								<div class="card-footer">
-									<div class="input-group">
-										<textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
-										<div class="input-group-append">
-											<span class="input-group-text send_btn">
-												<i class="fas fa-location-arrow"></i>
+									<div class="img_cont"> {% block conversationPicture %}{% endblock %}
+										</div>
+										<div class="user_info">
+											<span>
+												{% block conversationName %}{% endblock %}
 											</span>
+											<p>
+												{% block conversationInfo %}{% endblock %}
+											</p>
+										</div>
+									</div>
+								</div>
+								<div class="card-body msg_card_body"> {% block messages %}{% endblock %}
+									</div>
+									<div class="card-footer">
+										<div class="input-group">
+											<textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+											<div class="input-group-append">
+												<span class="input-group-text send_btn">
+													<i class="fas fa-location-arrow"></i>
+												</span>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</body>
-		</html>
+				</body>
+			</html>

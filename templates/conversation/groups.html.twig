@@ -29,6 +29,16 @@
 	{% endfor %}
 {% endblock %}
 
+{% block conversationPicture %}
+	{% if actualGroup.picture != null %}
+		<img src="{{ asset('photo/' ~ actualGroup.picture) }}" class="rounded-circle user_img">
+	{% else %}
+
+		<img src="{{ asset('img/defaultGroup.png') }}" class="rounded-circle user_img">
+	{% endif %}
+
+{% endblock %}
+
 {% block conversationName %}
 	{{ actualGroup.name }}
 {% endblock %}
@@ -48,13 +58,23 @@
 					<span class="msg_time_send">{{ message.date | date('d/m/Y H:i') }}</span>
 				</div>
 				<div class="img_cont_msg">
-					<img src="" class="rounded-circle user_img_msg">
+					{% if message.user.picture != null %}
+						<img src="{{ asset('photo/' ~ message.user.picture) }}" class="rounded-circle user_img_msg">
+
+					{% else %}
+						<img src="{{ asset('img/defaultProfile.png') }}" class="rounded-circle user_img_msg">
+					{% endif %}
 				</div>
 			</div>
 		{% else %}
 			<div class="d-flex justify-content-start mb-4">
 				<div class="img_cont_msg">
-					<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+					{% if message.user.picture != null %}
+						<img src="{{ asset('photo/' ~ message.user.picture) }}" class="rounded-circle user_img_msg">
+
+					{% else %}
+						<img src="{{ asset('img/defaultProfile.png') }}" class="rounded-circle user_img_msg">
+					{% endif %}
 				</div>
 				<div class="msg_cotainer">
 					{{ message.content }}
