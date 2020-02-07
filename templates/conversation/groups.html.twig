@@ -56,3 +56,18 @@
 		{% endif %}
 	{% endfor %}
 {% endblock %}
+
+{% block cardFooter %}
+	<div class="input-group">
+		{{ form_start(MessageType) }}
+		{{ form_widget(MessageType.content, { 'attr' : {
+			'placeholder' : 'Type your message...',
+			'class' : 'form-control type_msg'
+		}})}}
+
+		<div class="input-group-append">		
+{{ form_end(MessageType) }}			
+		</div>
+		
+	</div>
+{% endblock %}
