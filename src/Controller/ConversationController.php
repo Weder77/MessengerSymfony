@@ -93,6 +93,10 @@ class ConversationController extends AbstractController
             $group->setUsersAdmin($user_a);
             $group->addUser($user_a);
 
+            if($group -> getFile()){
+                $group-> uploadFile();
+            }
+
             foreach ($group->getUsers() as $user) {
                 if ($user != $user_a) {
                     $group->addUser($user);

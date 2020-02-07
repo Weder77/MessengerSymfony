@@ -51,7 +51,7 @@ class UserController extends AbstractController
             $user->setPassword($encoder->encodePassword($user, $password));
 
             $manager->flush();
-            $this->addFlash('success', 'Le compte à bien été créer, vous pouvez maintenant vous connecter !');
+            $this->addFlash('success', 'The account has been create ! You can now login with it !');
 
             return $this->redirectToRoute('login');
         }
