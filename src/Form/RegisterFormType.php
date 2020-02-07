@@ -24,8 +24,9 @@ class RegisterFormType extends AbstractType
         ->add('file', FileType::class, array(
             'required' => false
         ))
-        ->add('Register', SubmitType::class)
-        ;
+        ->add('Register', SubmitType::class, [
+            'attr' => ['class' => 'btn btn-custom'],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
