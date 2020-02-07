@@ -56,6 +56,9 @@ class ConversationController extends AbstractController
             $message->setState(3);
 
             $manager->flush();
+            return $this -> redirectToRoute('group-conversation', [
+                'id' => $id
+            ]);
         }
 
         return $this->render('conversation/groups.html.twig', array(

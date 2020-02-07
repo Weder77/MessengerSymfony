@@ -18,9 +18,6 @@ class MessageType extends AbstractType
             // ->add('state')
             // ->add('group_send')
             // ->add('user')
-            ->add(' Send', SubmitType::class, [
-                'attr' => ['class' => 'fas fa-location-arrow'],
-            ]);
         ;
     }
 

@@ -65,9 +65,16 @@
 			'class' : 'form-control type_msg'
 		}})}}
 
-		<div class="input-group-append">		
-{{ form_end(MessageType) }}			
+		<div class="input-group-append">
+			<span class="input-group-text send_btn"><button type="submit" class="btn btn-transparent"><i class="fas fa-location-arrow"></button></i></span>
 		</div>
-		
+		{{ form_end(MessageType) }}	
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		const messages = document.getElementById("messages");
+		messages.scrollTop = messages.scrollHeight;
+	</script>
 {% endblock %}
