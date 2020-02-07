@@ -2,7 +2,7 @@
 
 {% block conversationPicture %}
 	{% if actualGroup.picture != null %}
-		<img src="{{ asset('photo/profile/' ~ actualGroup.picture) }}" class="rounded-circle user_img">
+		<img src="{{ asset('photo/group/' ~ actualGroup.picture) }}" class="rounded-circle user_img">
 	{% else %}
 
 		<img src="{{ asset('img/defaultGroup.png') }}" class="rounded-circle user_img">
