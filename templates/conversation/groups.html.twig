@@ -58,18 +58,18 @@
 {% endblock %}
 
 {% block cardFooter %}
+{{ form_start(MessageType) }}
 	<div class="input-group">
-		{{ form_start(MessageType) }}
 		{{ form_widget(MessageType.content, { 'attr' : {
 			'placeholder' : 'Type your message...',
 			'class' : 'form-control type_msg'
 		}})}}
-
 		<div class="input-group-append">
-			<span class="input-group-text send_btn"><button type="submit" class="btn btn-transparent"><i class="fas fa-location-arrow"></button></i></span>
+			<button type="submit" class="btn btn-transparent" style="margin-left: -12px;"><span class="input-group-text send_btn" style="height: 60px;margin-top: -6px;"><i class="fas fa-location-arrow"></i></span></button>
 		</div>
 		{{ form_end(MessageType) }}	
 	</div>
+
 {% endblock %}
 
 {% block javascripts %}
