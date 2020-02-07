@@ -267,11 +267,13 @@ class User implements UserInterface
     {
         return $this->file;
     }
+    
     public function setFile(UploadedFile $file)
     {
         $this->file = $file;
         return $this;
     }
+
     public function uploadFile()
     {
         $name = $this->file->getClientOriginalName();
@@ -281,11 +283,13 @@ class User implements UserInterface
         // on enregistrela photo sur le serveur
         $this->file->move($this->dirPhoto(), $newName);
     }
+
     // public function removeFile(){
     //     if(file_exists($this ->dirPhoto() . $this->picture)){
     //         unlink($this ->dirPhoto() . $this->picture);
     //     }
     // }
+
     public function renameFile($name)
     {
         return 'photo_' . time() . rand(1, 99999) . '_' . $name;

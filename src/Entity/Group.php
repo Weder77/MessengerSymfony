@@ -169,32 +169,38 @@ class Group
         return $this;
     }
 
-
-    public function getFile(){
-        return $this ->file;
+    public function getFile()
+    {
+        return $this->file;
     }
-    public function setFile(UploadedFile $file){
-        $this ->file = $file;
+
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
         return $this;
     }
-    public function uploadFile(){
-        $name = $this ->file -> getClientOriginalName();
-        $newName = $this ->renameFile($name);
-        // on enregistre la photo dans la bdd
-        $this ->picture = $newName;
-        // on enregistrela photo sur le serveur
+
+    public function uploadFile()
+    {
+        $name = $this->file->getClientOriginalName();
+        $newName = $this->renameFile($name);
+        $this->picture = $newName;
         $this->file->move($this->dirPhoto(), $newName);
     }
+
     // public function removeFile(){
     //     if(file_exists($this ->dirPhoto() . $this->picture)){
     //         unlink($this ->dirPhoto() . $this->picture);
     //     }
     // }
-    public function renameFile($name){
+
+    public function renameFile($name)
+    {
         return 'photo_' . time() . rand(1, 99999) . '_' . $name;
     }
 
-    public function dirPhoto(){
+    public function dirPhoto()
+    {
         return __DIR__ . '/../../public/photo/group/';
     }
 

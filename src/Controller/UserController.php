@@ -33,16 +33,14 @@ class UserController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $manager = $this->getDoctrine()->getManager();
-        $user = new User; // objet vide de l'entity Post
+        $user = new User;
 
-        // formulaire
+        // REGISTER FORM
         $form = $this->createForm(RegisterFormType::class, $user);
-
-        // traitement des infos du formulaire
-        $form->handleRequest($request); // lier definitivement le $post aux infos du formulaire (recupere les donner en saisies en $_POST)
+        $form->handleRequest($request); // lier definitivement le $post aux infos du formulaire (recupere les données en saisies en $_POST)
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($user); // enregistrer le post dans le systeme
+            $manager->persist($user);
 
             if($user -> getFile()){
                 $user-> uploadFile();
@@ -52,7 +50,7 @@ class UserController extends AbstractController
             $password = $user->getPassword();
             $user->setPassword($encoder->encodePassword($user, $password));
 
-            $manager->flush(); // execute toutes les requetes en attentes
+            $manager->flush();
             $this->addFlash('success', 'Le compte à bien été créer, vous pouvez maintenant vous connecter !');
 
             return $this->redirectToRoute('login');

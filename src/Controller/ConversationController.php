@@ -74,36 +74,35 @@ class ConversationController extends AbstractController
     public function createGroups(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $users = $repository->findAll(); // On les récupères
+        $users = $repository->findAll();
 
         $manager = $this->getDoctrine()->getManager();
-        $grp = new Group;
+        $group = new Group;
 
-        // formulaire
-        $form = $this->createForm(CreateGroupType::class, $grp);
-
-        // traitement des infos du formulaire
-        $form->handleRequest($request); // lier definitivement le $post aux infos du formulaire (recupere les donner en saisies en $_POST)
+        // CREATE GROUP FORM
+        $form = $this->createForm(CreateGroupType::class, $group);
+        $form->handleRequest($request); // lier definitivement le $post aux infos du formulaire (recupere les données en saisies en $_POST)
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($group);
 
-            $manager->persist($grp); // enregistrer le post dans le systeme
-
-            $grp->setDate(new \DateTime('now'));
+            $group->setDate(new \DateTime('now'));
 
             $user_a = $this->getUser();
 
-            $grp->setUsersAdmin($user_a);
-            $grp->addUser($user_a);
+            $group->setUsersAdmin($user_a);
+            $group->addUser($user_a);
 
-            foreach ($grp->getUsers() as $user) {
+            foreach ($group->getUsers() as $user) {
                 if ($user != $user_a) {
-                    $grp->addUser($user);
+                    $group->addUser($user);
                 }
             }
 
-            $manager->flush(); // execute toutes les requetes en attentes
-            $this->addFlash('success', 'Le groupe a bien été crée ! Vous le retrouverez à l\'accueil !');
+            $manager->flush();
+            $this->addFlash('success', 'Your group has been created!');
+
+            return $this->redirectToRoute('groups-list');
         }
 
         return $this->render('conversation/creategroups.html.twig', array(
