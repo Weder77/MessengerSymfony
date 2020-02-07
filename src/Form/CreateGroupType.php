@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Group;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,10 +21,16 @@ class CreateGroupType extends AbstractType
                 'required' => false
             ))
             // ->add('date')
-            // ->add('users')
+            -> add('users', EntityType::class, array(
+                'class' => User::class,
+                'multiple' => true,
+                'expanded' => true,
+                'choice_label' => 'username',
+            ))
             // ->add('users_admin')
-            ->add('Create Group', SubmitType::class)
-        ;
+            ->add('Create Group', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-light'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

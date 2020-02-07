@@ -48,7 +48,7 @@ class ConversationController extends AbstractController
      */
     public function createGroups(Request $request)
     {
-        $repository = $this -> getDoctrine() -> getRepository('App\Entity\User'); // 
+        $repository = $this -> getDoctrine() -> getRepository(User::class);
         $users = $repository -> findAll(); // On les récupères
 
         $manager = $this -> getDoctrine() -> getManager();
@@ -69,13 +69,16 @@ class ConversationController extends AbstractController
             $user_a = $this->getUser();
             
             $grp->setUsersAdmin($user_a);
-
             $grp->addUser($user_a);
-            
+
+            foreach($grp -> getUsers() as $user) {
+                if($user != $user_a){
+                    $grp -> addUser($user);
+                }
+            }
 
             $manager->flush(); // execute toutes les requetes en attentes
             $this->addFlash('success', 'Le groupe a bien été crée ! Vous le retrouverez à l\'accueil !');
-
         }
 
         return $this->render('conversation/creategroups.html.twig', array(

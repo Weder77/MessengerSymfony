@@ -84,9 +84,10 @@
 
 				<div class="card-body msg_card_body">
 					<div class="container col-md-6">
+
 						{{ form_start(CreateGroupType) }}
 						{# name #}
-						<div class="input-group mb-3">
+						<div class="input-group ">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-signature"></i></i></span>
 							</div>
@@ -107,31 +108,18 @@
                         }})}}
 								{{ form_errors(CreateGroupType.file) }}
 							</div>
-							<table class="table table-striped mt-4 table-dark">
-								<thead>
-									<tr class="text-center">
-										<th scope="col">Username</th>
-										<th scope="col">Picture</th>
-										<th scope="col">Add</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for u in users %}
-									<tr class="text-center">
-										<td>{{ u.username }}</td>
-										<td><img src="{{ asset('/photo/profile/' ~ u.picture) }}" height="40px" /></td>
-										<td><input type="checkbox" id="{{ u.username }}CB"></td>
-									</tr>
-									{% endfor %}
-								</tbody>
-							</table>
 
-							{{ form_end(CreateGroupType) }}
+							<h4 class="text-white mt-4">Users</h4>
 
-							<div class="d-flex justify-content-center mt-3 login_container">
+							<div class="input-group mb-3 mt-4">
+								{{ form_widget(CreateGroupType.users, { 'attr' : {
+                            'class' : 'form-group'
+                        }})}}
+								{{ form_errors(CreateGroupType.users) }}
 							</div>
 
 
+						{{ form_end(CreateGroupType) }}
 						</div>
 
 					</div>
@@ -141,4 +129,7 @@
 		</div>
 	</div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	{% endblock %}
