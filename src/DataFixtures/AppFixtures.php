@@ -22,10 +22,8 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 3; $i++) {
             $user = new User;
             $user->setUsername('user' . $i);
-            // Encode password
             $password = $this->encoder->encodePassword($user, 'Ynov2020');
             $user->setPassword($password);
-            // $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$EhOLiH7Tg0WPOdnd7UQwUQ$fWLoX7zHIniw/yUfA/ds9/2Nl893xZ9/mWln60GRjRQ');
             $user->setEmail('user' . $i . '@user.loc');
             $manager->persist($user);
         }

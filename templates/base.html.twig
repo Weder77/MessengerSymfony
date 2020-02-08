@@ -26,17 +26,19 @@
 
 	<body>
 		{# SUCCESS & ERROR MESSAGES #}
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success mt-4">
-				{{ message }}
-			</div>
-		{% endfor %}
+		<div class="container">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success mt-4">
+					{{ message }}
+				</div>
+			{% endfor %}
 
-		{% for message in app.flashes('error') %}
-			<div class="alert alert-success mt-4">
-				{{ message }}
-			</div>
-		{% endfor %}
+			{% for message in app.flashes('error') %}
+				<div class="alert alert-danger mt-4">
+					{{ message }}
+				</div>
+			{% endfor %}
+		</div>
 
 		{# CONTENT #}
 		{% block body %}{% endblock %}

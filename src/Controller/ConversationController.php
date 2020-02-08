@@ -35,11 +35,32 @@ class ConversationController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $rep = $this->getDoctrine()->getRepository(User::class);
 
-        $id_user = $this->getUser()->getId();
-        $groups = $rep->find($id_user)->getGroups();
+        $user_a = $this->getUser();
+        $groups = $rep->find($user_a->getId())->getGroups();
 
         $rep = $this->getDoctrine()->getRepository(Group::class);
         $group = $rep->find($id);
+
+        // Si groupe n'existe pas => rediretion
+        if ($group == null) {
+            $this->addFlash('error', 'Oups, it looks like you cannot access to this conversation...');
+            return $this->redirectToRoute('groups-list');
+        }
+        // Si groupe existe MAIS que l'on n'est pas membre => redirection
+        else {
+            $isInGroup = false;
+            foreach ($group->getUsers() as $user) {
+                if ($user_a == $user) {
+                    $isInGroup = true;
+                    break;
+                }
+            }
+
+            if ($isInGroup == false) {
+                $this->addFlash('error', 'Oups, it looks like you cannot access to this conversation...');
+                return $this->redirectToRoute('groups-list');
+            }
+        }
 
         $message = new Message;
         $form = $this->createForm(MessageType::class, $message);
@@ -56,7 +77,7 @@ class ConversationController extends AbstractController
             $message->setState(3);
 
             $manager->flush();
-            return $this -> redirectToRoute('group-conversation', [
+            return $this->redirectToRoute('group-conversation', [
                 'id' => $id
             ]);
         }
@@ -93,8 +114,8 @@ class ConversationController extends AbstractController
             $group->setUsersAdmin($user_a);
             $group->addUser($user_a);
 
-            if($group -> getFile()){
-                $group-> uploadFile();
+            if ($group->getFile()) {
+                $group->uploadFile();
             }
 
             foreach ($group->getUsers() as $user) {
