@@ -1,0 +1,12 @@
+Git :
+    https://github.com/Weder77/MessengerSymfony
+
+Membres : 
+    Dany Jean-Charles
+    Théo Grelet
+
+Fixtures fonctionnelles
+
+Remarques :
+    - Utilisation de Bootstrap + Template
+    - Connexion via "username"
