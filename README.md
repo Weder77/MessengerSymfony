@@ -2,7 +2,7 @@
 <p>
 </p>
 
-> A school project in symfony. This is a like messenger / whatsapp app.
+> A school project in symfony. This is a like messenger / whatsapp app but in web.
 
 ## Installation
 
