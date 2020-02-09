@@ -1,5 +1,7 @@
 {% extends 'chatBase.html.twig' %}
 
+{% block title %}{{ actualGroup.name }}{% endblock %}
+
 {% block conversationPicture %}
 	{% if actualGroup.picture != null %}
 		<img src="{{ asset('photo/group/' ~ actualGroup.picture) }}" class="rounded-circle user_img">
